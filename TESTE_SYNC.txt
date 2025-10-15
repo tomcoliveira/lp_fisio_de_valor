@@ -1,0 +1,8 @@
+🚀 TESTE DE SINCRONIZAÇÃO
+
+Este arquivo foi criado para testar se o GitHub @outlook está sincronizando com a Vercel @outlook.
+
+Timestamp: 2025-10-15 15:22:13
+Commit de teste para verificar pipeline.
+
+Se você está vendo este arquivo na Vercel, a sincronização está funcionando! ✅
