@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
             </a>
         </div>
         <div className="mt-16 border-t border-teal-600 pt-8">
-            <img src="/logo-white.png" alt="Fisio de Valor por Carla Gutschov Logo" className="h-10 mx-auto mb-4" />
+            <img src="/logo.png" alt="Fisio de Valor por Carla Gutschov Logo" className="h-10 mx-auto mb-4" />
             <p className="text-sm text-teal-300">
               © {new Date().getFullYear()} Fisio de Valor. Todos os direitos reservados.
             </p>
