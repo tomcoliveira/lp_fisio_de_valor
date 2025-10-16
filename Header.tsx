@@ -1,0 +1,13 @@
+import React from 'react';
+
+const Header: React.FC = () => {
+  return (
+    <header className="py-3 px-4 sm:px-8 md:px-12 absolute top-0 left-0 w-full z-20">
+      <div className="container mx-auto max-w-5xl">
+        <img src="/logo.png" alt="Fisio de Valor por Carla Gutschov Logo" className="h-16 md:h-20" width="288" height="80" />
+      </div>
+    </header>
+  );
+};
+
+export default Header;
