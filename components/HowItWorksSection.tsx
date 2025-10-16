@@ -15,11 +15,10 @@ const HowItWorksSection: React.FC = () => {
           </div>
           <div className="w-full md:w-1/2 flex justify-center">
              <div className="relative w-full max-w-sm">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-[#FFC700] to-teal-500 rounded-full opacity-10 filter blur-3xl"></div>
                 <img 
-                    src="/mentor.png" 
-                    alt="Carla Gutschow" 
-                    className="relative w-full z-10"
+                    src="/carla_box.png" 
+                    alt="Carla Gutschov"
+                    className="w-full"
                 />
              </div>
           </div>
