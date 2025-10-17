@@ -20,6 +20,14 @@ const Hero: React.FC = () => {
           <div style={{ animationDelay: '600ms' }} className="mt-12 animate-fade-in">
             <a
               href="#cta"
+              onClick={() => {
+                if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+                  window.gtag('event', 'click', {
+                    event_category: 'engagement',
+                    event_label: 'hero_cta_button'
+                  });
+                }
+              }}
               className="bg-[#FFC700] text-black font-bold py-4 px-10 rounded-lg text-lg hover:bg-opacity-90 transition-all transform hover:scale-105 shadow-lg"
             >
               QUERO VIVER ESSA JORNADA
