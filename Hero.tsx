@@ -3,7 +3,7 @@ import React from 'react';
 const Hero: React.FC = () => {
   return (
     <section 
-      className="relative pt-28 pb-24 px-4 overflow-hidden min-h-[95vh] flex items-center bg-cover bg-center bg-no-repeat"
+      className="relative pt-28 pb-24 px-4 overflow-hidden min-h-screen md:min-h-[95vh] flex items-center bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/banner.png')" }}
     >
       <div className="container mx-auto max-w-5xl relative z-10">
@@ -20,6 +20,14 @@ const Hero: React.FC = () => {
           <div style={{ animationDelay: '600ms' }} className="mt-12 animate-fade-in">
             <a
               href="#cta"
+              onClick={() => {
+                if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+                  window.gtag('event', 'click', {
+                    event_category: 'engagement',
+                    event_label: 'hero_cta_button'
+                  });
+                }
+              }}
               className="bg-[#FFC700] text-black font-bold py-4 px-10 rounded-lg text-lg hover:bg-opacity-90 transition-all transform hover:scale-105 shadow-lg"
             >
               QUERO VIVER ESSA JORNADA
