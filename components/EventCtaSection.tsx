@@ -16,6 +16,14 @@ const EventCtaSection: React.FC = () => {
         <div className="mt-12">
           <a
             href="#cta"
+            onClick={() => {
+              if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+                window.gtag('event', 'click', {
+                  event_category: 'engagement',
+                  event_label: 'event_cta_button'
+                });
+              }
+            }}
             className="bg-[#FFC700] text-black font-bold py-4 px-10 rounded-lg text-lg hover:bg-opacity-90 transition-all transform hover:scale-105 shadow-lg"
           >
             QUERO PARTICIPAR DO EVENTO

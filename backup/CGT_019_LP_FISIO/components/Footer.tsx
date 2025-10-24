@@ -10,16 +10,14 @@ const Footer: React.FC = () => {
         </p>
         <div className="mt-10">
            <a
-              href="https://pay.hotmart.com/X102576529F?checkoutMode=2"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#cta"
               className="bg-[#FFC700] text-black font-bold py-4 px-10 rounded-lg text-lg hover:bg-opacity-90 transition-all transform hover:scale-105 shadow-lg inline-block"
             >
               QUERO FAZER PARTE DESSA JORNADA
             </a>
         </div>
         <div className="mt-16 border-t border-teal-600 pt-8">
-            <img src="/logo.png" alt="Fisio de Valor por Carla Gutschow Logo" style={{height: '60px'}} className="mx-auto mb-4" />
+            <img src="/logo-white.png" alt="Fisio de Valor por Carla Gutschow Logo" className="h-10 mx-auto mb-4" />
             <p className="text-sm text-teal-300">
               © {new Date().getFullYear()} Fisio de Valor. Todos os direitos reservados.
             </p>

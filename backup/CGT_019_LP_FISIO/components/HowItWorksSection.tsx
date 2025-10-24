@@ -19,7 +19,7 @@ const HowItWorksSection: React.FC = () => {
                 <img 
                     src="/mentor.png" 
                     alt="Carla Gutschow" 
-                    className="relative w-full z-10 rounded-lg"
+                    className="relative w-full z-10 filter grayscale"
                 />
              </div>
           </div>

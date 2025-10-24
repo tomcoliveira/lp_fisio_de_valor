@@ -21,8 +21,8 @@ const ParaQuemESection: React.FC = () => {
           </div>
           <div className="w-full md:w-1/2 flex justify-center">
             <img 
-              src="/logo.png" 
-              alt="Fisio de Valor Logo" 
+              src="/audience.png" 
+              alt="Fisioterapeuta atendendo paciente em casa" 
               className="rounded-lg shadow-xl w-full max-w-md"
             />
           </div>

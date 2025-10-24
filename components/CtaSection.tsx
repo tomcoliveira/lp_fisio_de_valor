@@ -1,140 +1,135 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+const pricingTiers = [
+  { date: '23/10', price: 'R$ 997', note: 'Lote 1 (Encerrado)' },
+  { date: '24/10 – 01/11', price: 'R$ 1.197', installments: '12x de R$ 121,94', special: true, note: 'Lote 2 (Aberto)' },
+  { date: '02/11 – 08/11', price: 'R$ 1.397' },
+  { date: '09/11 – 17/11', price: 'R$ 1.597' },
+];
 
 const CtaSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    whatsapp: ''
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setErrorMessage(null);
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch('/api/submit-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const payload = await response.json().catch(() => ({}));
-        const message = typeof payload?.message === 'string' ? payload.message : 'Não foi possível enviar sua inscrição. Tente novamente em instantes.';
-        throw new Error(message);
-      }
-
-      setSubmitted(true);
-      setFormData({ name: '', email: '', whatsapp: '' });
-
-      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-        window.gtag('event', 'generate_lead', {
-          method: 'cta_form',
-        });
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Não foi possível enviar sua inscrição. Tente novamente.';
-      setErrorMessage(message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
-    <section id="cta" className="py-24 md:py-32 px-4 bg-teal-50">
-      <div className="container mx-auto max-w-4xl text-left">
-        <h2 className="font-display text-4xl md:text-6xl font-bold text-gray-900">
+    <section id="cta" className="py-24 md:py-32 px-4 bg-[#2c6b67]">
+      <div className="container mx-auto max-w-5xl text-center">
+        <h2 className="font-display text-4xl md:text-6xl font-bold text-white">
           SEJA O FISIO DE VALOR.
         </h2>
-        <p className="text-lg text-gray-700 mt-4 max-w-xl">
-          A mentoria que vai transformar seu trabalho em reconhecimento, previsibilidade e renda real. Preencha abaixo para entrar na lista de espera e garantir acesso antecipado à condição especial.
+        <p className="text-lg text-teal-200 mt-4 max-w-2xl mx-auto">
+          A mentoria que vai transformar seu trabalho em reconhecimento, previsibilidade e renda real. Garanta sua vaga agora e comece a jornada.
         </p>
-
-        {submitted ? (
-          <div className="mt-10 bg-white p-8 rounded-lg shadow-md text-center animate-fade-in">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-teal-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4 4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <h3 className="text-2xl font-bold text-teal-900">Inscrição enviada!</h3>
-            <p className="text-teal-700 mt-2">Obrigado! Em breve entraremos em contato com mais informações.</p>
-          </div>
-        ) : (
-          <div className="mt-10">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-lg space-y-6 max-w-lg">
-              {errorMessage && (
-                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                  {errorMessage}
+        
+        <div className="mt-16 max-w-3xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">Valores e Lotes</h3>
+            <div className="space-y-2 text-left">
+                {pricingTiers.map((tier, index) => (
+                <div 
+                    key={index} 
+                    className={`py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center transition-all duration-300 ${tier.special ? 'bg-teal-800/60 rounded-lg -mx-4 px-4' : ''} ${index > 0 ? 'border-t border-teal-600/50' : ''}`}
+                >
+                    <div className={`font-semibold ${tier.special ? 'text-white' : 'text-teal-200'}`}>{tier.date}:</div>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-1 mt-2 sm:mt-0 text-left sm:text-right">
+                    <div className="flex items-baseline gap-x-4">
+                        <span className={`text-xl font-bold ${tier.special ? 'text-[#FFC700]' : 'text-white'}`}>{tier.price}</span>
+                        {tier.installments && <span className={`text-base font-medium ${tier.special ? 'text-yellow-200' : 'text-teal-300'}`}>{tier.installments}</span>}
+                    </div>
+                    {tier.note && <span className={`text-sm ${tier.special ? 'text-yellow-200' : 'text-teal-300'}`}>{tier.note}</span>}
+                    </div>
                 </div>
-              )}
-              <div>
-                <label htmlFor="name" className="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Nome Completo</label>
-                <input 
-                  type="text" 
-                  name="name" 
-                  id="name" 
-                  required 
-                  value={formData.name} 
-                  onChange={handleChange} 
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC700] placeholder:text-gray-500 transition-all" 
-                />
-              </div>
-               <div>
-                <label htmlFor="email" className="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">Seu melhor e-mail</label>
-                <input 
-                  type="email" 
-                  name="email" 
-                  id="email" 
-                  required 
-                  value={formData.email} 
-                  onChange={handleChange} 
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC700] placeholder:text-gray-500 transition-all" 
-                />
-              </div>
-               <div>
-                <label htmlFor="whatsapp" className="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">WhatsApp</label>
-                <input 
-                  type="tel" 
-                  name="whatsapp" 
-                  id="whatsapp" 
-                  required 
-                  value={formData.whatsapp} 
-                  onChange={handleChange} 
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC700] placeholder:text-gray-500 transition-all" 
-                  placeholder="(XX) XXXXX-XXXX" 
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full flex items-center justify-center bg-[#FFC700] text-black font-bold py-4 px-8 rounded-lg text-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-[#FFC700] transition-all ${
-                  isSubmitting ? 'opacity-60 cursor-not-allowed' : 'hover:bg-opacity-90 transform hover:scale-105'
-                }`}
-              >
-                <span>{isSubmitting ? 'Enviando...' : 'QUERO ME INSCREVER'}</span>
-                {!isSubmitting && (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                )}
-              </button>
-            </form>
-          </div>
-        )}
+                ))}
+            </div>
+        </div>
+
+        <div className="mt-20 space-y-6">
+            <div className="bg-white p-8 rounded-lg border-4 border-[#FFC700] text-left shadow-2xl flex flex-col md:flex-row md:items-center gap-8">
+                <div className="flex-grow">
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Mentoria Fisio de Valor</h3>
+                    <p className="text-gray-600 mt-3 text-base">Acesso completo à mentoria, aulas gravadas, encontros ao vivo e grupo de acompanhamento para transformar sua carreira.</p>
+                </div>
+                <div className="flex-shrink-0">
+                    <a 
+                    href="https://pay.hotmart.com/Q95596464W?off=2illqtc6" 
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+                        window.gtag('event', 'click', {
+                          event_category: 'conversion',
+                          event_label: 'mentoria_main_button'
+                        });
+                      }
+                    }}
+                    className="hotmart-fb hotmart__button-checkout inline-block w-full sm:w-auto text-center bg-[#FFC700] text-black font-bold py-3 px-8 rounded-lg text-lg hover:bg-opacity-90 transition-all transform hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-[#FFC700]"
+                    >
+                    GARANTIR MINHA VAGA
+                    </a>
+                </div>
+            </div>
+
+            <div className="pt-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch text-left">
+                    <div className="bg-white p-6 rounded-lg border border-gray-200 flex flex-col">
+                        <h4 className="text-lg font-bold text-gray-900">Mentoria + Kit Essencial</h4>
+                        <p className="text-gray-600 mt-2 text-sm flex-grow">Todo o conteúdo da mentoria, mais o kit com mais de 80 fichas práticas.</p>
+                        <div className="mt-4">
+                        <a 
+                            href="https://pay.hotmart.com/X102576529F?off=72jtiwri" 
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+                                window.gtag('event', 'click', {
+                                  event_category: 'conversion',
+                                  event_label: 'combo_kit_button'
+                                });
+                              }
+                            }}
+                            className="hotmart-fb hotmart__button-checkout block w-full text-center bg-gray-800 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-900 transition-all"
+                        >
+                            QUERO O KIT
+                        </a>
+                        </div>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-lg border border-gray-200 flex flex-col">
+                        <h4 className="text-lg font-bold text-gray-900">Prática Fisioterapêutica no Alzheimer</h4>
+                        <p className="text-gray-600 mt-2 text-sm flex-grow">Um curso prático para atender com segurança e eficácia.</p>
+                        <div className="mt-4">
+                        <a 
+                            href="https://pay.kiwify.com.br/d01m59o"
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+                                window.gtag('event', 'click', {
+                                  event_category: 'conversion',
+                                  event_label: 'alzheimer_course_button'
+                                });
+                              }
+                            }}
+                            className="block w-full text-center bg-gray-800 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-900 transition-all"
+                        >
+                            SAIBA MAIS
+                        </a>
+                        </div>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-lg border border-gray-200 flex flex-col">
+                        <h4 className="text-lg font-bold text-gray-900">Instagram para Fisioterapeutas</h4>
+                        <p className="text-gray-600 mt-2 text-sm flex-grow">Atraia pacientes particulares de forma estratégica e autêntica.</p>
+                        <div className="mt-4">
+                        <a 
+                            href="https://pay.hotmart.com/J97390891S" 
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+                                window.gtag('event', 'click', {
+                                  event_category: 'conversion',
+                                  event_label: 'instagram_course_button'
+                                });
+                              }
+                            }}
+                            className="block w-full text-center bg-gray-800 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-900 transition-all"
+                        >
+                            SAIBA MAIS
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
       </div>
     </section>
