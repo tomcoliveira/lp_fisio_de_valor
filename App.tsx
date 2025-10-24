@@ -1,0 +1,38 @@
+import React from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import ViradaDeChaveSection from './components/ViradaDeChaveSection';
+import DominarSection from './components/DominarSection';
+import ParaQuemESection from './components/ParaQuemESection';
+import HowItWorksSection from './components/HowItWorksSection';
+import PromiseSection from './components/PromiseSection';
+import DepoimentoSection from './components/DepoimentoSection';
+// FIX: Import FaqSection component to be rendered on the page.
+import FaqSection from './components/FaqSection';
+import CtaSection from './components/CtaSection';
+import Footer from './components/Footer';
+import FloatingCta from './components/FloatingCta';
+
+const App: React.FC = () => {
+  return (
+    <div className="bg-white text-gray-800 min-h-screen">
+      <Header />
+      <main>
+        <Hero />
+        <ViradaDeChaveSection />
+        <DominarSection />
+        <ParaQuemESection />
+        <HowItWorksSection />
+        <PromiseSection />
+        <DepoimentoSection />
+        {/* FIX: Add FaqSection to the page to display frequently asked questions. */}
+        <FaqSection />
+        <CtaSection />
+      </main>
+      <Footer />
+      <FloatingCta />
+    </div>
+  );
+};
+
+export default App;
